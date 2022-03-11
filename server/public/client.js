@@ -7,22 +7,31 @@ $(handleReady);
 function handleReady() {
     console.log('jQuery');
 
-    $('#calculator').on('click', '.button', handleButtonClick);
+    $('#calculator').on('click', '.number', handleNumberClick);
+    $('#calculator').on('click', '.operator', handleOperatorClick);
+    $('#equals').on('click', handleEqualsClick);
+    $('#clear').on('click', handleClearClick);
 }
 
-// POSTs client button input to the server
-function handleButtonClick() {
-    console.log('in handleButtonClick');
-    button = $(this).val();
-    console.log('clicked:', button);
-
-    $.ajax({
-        url: '/expressionArray',
-        method: 'POST',
-        data: { 
-            buttonInput: button
-        }
-    }).then(function(response) {
-        console.log(response, 'POST', {buttonInput: button}); // will be 'Created' because of the 201
-    })
+function handleNumberClick() {
+    console.log('in handleNumberClick');
+    number = $(this).val();
+    console.log('clicked:', number);
 }
+
+function handleOperatorClick() {
+    console.log('in handleOperatorClick');
+    operator = $(this).val();
+    console.log('clicked:', operator);
+}
+
+function handleEqualsClick() {
+    console.log('in handleEqualsClick');
+    console.log('clicked:', '=');
+}
+
+function handleClearClick() {
+    console.log('in handleClearClick');
+    console.log('clicked:', 'C');
+}
+
