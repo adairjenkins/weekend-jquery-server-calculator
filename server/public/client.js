@@ -16,6 +16,7 @@ function handleReady() {
 
 function handleButtonClick() {
     console.log('handleButtonClick func');
+    
     // builds num1 if operator has not yet been clicked
     if ($(this).hasClass('number') && operator === '') {
          console.log('clicked a number')
@@ -43,10 +44,16 @@ function handleButtonClick() {
         }
         console.log('calculationObj:', calculationObj);
 
-
+        postRequest(calculationObj);
     }
 }
 
 function postRequest(obj) {
-    
+    $.ajax({
+        url: '/calculationHistory',
+        method: 'POST',
+        data: obj
+    }).then(function(response) {
+        console.log(response, 'it worked!'); // will be 'created' because of the 201
+    })
 }
