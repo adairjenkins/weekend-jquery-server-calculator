@@ -45,6 +45,13 @@ function handleButtonClick() {
         console.log('calculationObj:', calculationObj);
 
         postRequest(calculationObj);
+        
+        calculationObj.num1 = '';
+        calculationObj.num2 = '';
+        calculationObj.operator = '';
+        console.log(calculationObj);
+        // HOW DO I RESET FOR A NEW CALCULATION? KEEP ADDING TO NUM2 INSTEAD
+
     }
 }
 
@@ -54,6 +61,6 @@ function postRequest(obj) {
         method: 'POST',
         data: obj
     }).then(function(response) {
-        console.log(response, 'it worked!'); // will be 'created' because of the 201
+        console.log(response); // will be 'created' because of the 201
     })
 }
