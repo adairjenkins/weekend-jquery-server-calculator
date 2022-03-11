@@ -2,36 +2,51 @@ console.log('js');
 
 $(handleReady);
 
-// expression = ''; -----> do on the server end
+let num1 = '';
+let num2 = '';
+let operator = '';
+let result = 0;
 
 function handleReady() {
     console.log('jQuery');
 
-    $('#calculator').on('click', '.number', handleNumberClick);
-    $('#calculator').on('click', '.operator', handleOperatorClick);
-    $('#equals').on('click', handleEqualsClick);
-    $('#clear').on('click', handleClearClick);
+    $('#calculator').on('click', '.button', handleButtonClick)
+
 }
 
-function handleNumberClick() {
-    console.log('in handleNumberClick');
-    number = $(this).val();
-    console.log('clicked:', number);
+function handleButtonClick() {
+    console.log('handleButtonClick func');
+    // builds num1 if operator has not yet been clicked
+    if ($(this).hasClass('number') && operator === '') {
+         console.log('clicked a number')
+         num1 += $(this).val();
+         console.log('num1:', num1);
+    }
+    // assigns operator +, -, *, or /
+    else if ($(this).hasClass('operator')) {
+        operator = $(this).val();
+        console.log('operator:', operator)
+    }
+    // build num2
+    else if ($(this).hasClass('number')) {
+        num2 += $(this).val();
+        console.log('num2:', num2);
+    }
+    // 
+    else if ($(this).hasClass('equals')) {
+        /// builds calculation object and prepares POST request
+        const calculationObj = {
+            num1: num1,
+            num2: num2,
+            operator: operator,
+            result: result
+        }
+        console.log('calculationObj:', calculationObj);
+
+
+    }
 }
 
-function handleOperatorClick() {
-    console.log('in handleOperatorClick');
-    operator = $(this).val();
-    console.log('clicked:', operator);
+function postRequest(obj) {
+    
 }
-
-function handleEqualsClick() {
-    console.log('in handleEqualsClick');
-    console.log('clicked:', '=');
-}
-
-function handleClearClick() {
-    console.log('in handleClearClick');
-    console.log('clicked:', 'C');
-}
-

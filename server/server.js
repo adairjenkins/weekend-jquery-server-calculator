@@ -5,17 +5,17 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 5000;
 
-expressionArray = [];
+expressionData = [];
 
 // serve static files
 app.use(express.static('server/public'));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.post('/expressionArray', (req, res) => {
-    // add button input objects to expressionArray
+app.post('/expressionData', (req, res) => {
+    // add button input objects to expressionData
     expressionArray.push(req.body)
-    console.log('POST', expressionArray);
+    console.log('POST', expressionData);
     // confirmation response to client 
     res.sendStatus(201); //200 -> ok, 201 -> created - 201 is customary for POST request
 });
