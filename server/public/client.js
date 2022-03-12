@@ -9,7 +9,7 @@ const calculationObj = {
     operator: '',
     result: ''
 }
-let calculationHistory;
+let calculationHistory = [];
 
 function handleReady() {
     console.log('jQuery');
@@ -22,6 +22,7 @@ function handleReady() {
     $('#clearHistory').on('click', clearHistory);
 
     getHistory();
+    reset();
 }
 
 function handleNumber() {
@@ -55,11 +56,17 @@ function handleEquals() {
     console.log('handleEquals func');
 
     console.log('calculationObj:', calculationObj);
-    // call func to make a POST request with new calculationObj
-    postCalculation(calculationObj);
-    // retrieve calculations
-    getHistory();
+    
+    if (calculationObj.num1 && calculationObj.num2 && calculationObj.operator) {
+        // call func to make a POST request with new calculationObj
+        postCalculation(calculationObj);
+        // retrieve calculations
+        getHistory();
     }
+    else {
+        alert('Enter valid expression using positive numbers');
+    }
+}
 
 function reset() {
     console.log('reset func');
@@ -68,7 +75,7 @@ function reset() {
     calculationObj.num2 = '';
     calculationObj.operator = '';
     // clear calculator display
-    updateCalcDisplay();
+    $('#calcDisplay').val('');
 }
 
 // POST request - sends obj to server where it is added to calculationHistory
@@ -92,8 +99,8 @@ function getHistory() {
     }).then( function(response) {
         // store server response in global variable
         calculationHistory = response;
+        console.log('in get', calculationHistory[0]);
         // update DOM
-        $('#calcDisplay').val(calculationHistory[0].result)
         displayCalculations(calculationHistory);
     }).catch( function(error) {
         console.log('error');
@@ -117,6 +124,9 @@ function displayCalculations(calculationHistory) {
         `)
     }
 }
+
+// TO DO - display result in calculator display
+// save previous result as num1
 
 // DELETE request to server and updates DOM 
 function clearHistory() {
