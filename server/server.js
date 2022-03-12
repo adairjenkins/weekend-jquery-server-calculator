@@ -54,9 +54,9 @@ app.get('/calculationHistory', function(req, res) {
     res.send(calculationHistory);
 });
 
-// 
+// empties calculationHistory array when server receives DELETE request
 app.delete('/calculationHistory', (req, res) => {
-    // clear calculationHistory
+    // empty calculationHistory
     calculationHistory = [];
     console.log('DELETE calculationHistory');
     // confirmation response to client 
