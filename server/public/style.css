@@ -8,6 +8,8 @@ body {
 
 #calcDisplay {
     text-align: right;
+    letter-spacing: .05em;
+    word-spacing: 3em;
 }
 
 li {

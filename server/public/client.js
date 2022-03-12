@@ -2,6 +2,7 @@ console.log('js');
 
 $(handleReady);
 
+// global variable to hold user input
 const calculationObj = {
     num1 : '',
     num2: '',
