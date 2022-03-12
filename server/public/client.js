@@ -9,6 +9,7 @@ const calculationObj = {
     operator: '',
     result: ''
 }
+let calculationHistory;
 
 function handleReady() {
     console.log('jQuery');
@@ -56,9 +57,9 @@ function handleEquals() {
     console.log('calculationObj:', calculationObj);
     // call func to make a POST request with new calculationObj
     postCalculation(calculationObj);
-    reset()
+    // retrieve calculations
     getHistory();
-}
+    }
 
 function reset() {
     console.log('reset func');
@@ -82,27 +83,37 @@ function postCalculation(obj) {
 }
 
 // GET request - retrieves calculationHistory with updated results from server
+// and calls displayCalculations func to update DOM
 function getHistory() {
     console.log('getHistory func');
     $.ajax({
         url: '/calculationHistory',
         method: 'GET'
     }).then( function(response) {
+        // store server response in global variable
+        calculationHistory = response;
         // update DOM
-        displayHistory(response);
+        $('#calcDisplay').val(calculationHistory[0].result)
+        displayCalculations(calculationHistory);
     }).catch( function(error) {
         console.log('error');
     })
 }
 
 // displays list in DOM of all calculation objects in array
-function displayHistory(calculationHistory) {
+function displayCalculations(calculationHistory) {
     // clear DOM
     $('#history').empty();
+    // loop through calculationHistory and display each entry
     for (const entry of calculationHistory) {
         $('#history').append(`
-            <li class="entry" data-num1="${entry.num1}" data-num2="${entry.num2}" data-operator="${entry.operator}" data-result="${entry.result}">
-            ${entry.num1} ${entry.operator} ${entry.num2} = ${entry.result}</li>
+            <li class="entry" 
+                data-num1="${entry.num1}" 
+                data-num2="${entry.num2}" 
+                data-operator="${entry.operator}" 
+                data-result="${entry.result}">
+            ${entry.num1} ${entry.operator} ${entry.num2} = ${entry.result}
+            </li>
         `)
     }
 }
@@ -120,8 +131,11 @@ function clearHistory() {
     });
     // update DOM
     getHistory();
+    reset();
 }
 
+// re-enters clicked entry in calculator display; calculation will not run again
+// until equals click event
 function reRunCalculation() {
     console.log('reRunCalculation func');
     // retrieve values from data in entry
@@ -131,6 +145,9 @@ function reRunCalculation() {
     calculationObj.result = $(this).data('result');
 
     console.log('retrieved:', calculationObj);
+    $('#calcDisplay').val(calculationObj.num1 + 
+        calculationObj.operator +
+        calculationObj.num2);
 }
 
 // displays button input in DOM calculator display
@@ -140,11 +157,4 @@ function updateCalcDisplay() {
                               calculationObj.operator +
                               calculationObj.num2);
     }
-    // else {
-    //     $('#calcDisplay').val(calculationObj.num1 + 
-    //                           calculationObj.operator +
-    //                           calculationObj.num2 +
-    //                           '=' +
-    //                           calculationObj.result);
-    // }
 }
