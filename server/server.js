@@ -8,7 +8,7 @@ const PORT = 5000;
 app.use(express.static('server/public'));
 app.use(bodyParser.urlencoded({extended: true}));
 
-calculationHistory = [];
+let calculationHistory = [];
 
 // performs operation on num1 and num2 and updates result
 function calculate(calculationObj) {
@@ -52,6 +52,15 @@ app.get('/calculationHistory', function(req, res) {
     console.log('GET /calculationHistory');
     //server must respond
     res.send(calculationHistory);
+});
+
+// 
+app.delete('/calculationHistory', (req, res) => {
+    // clear calculationHistory
+    calculationHistory = [];
+    console.log('DELETE calculationHistory');
+    // confirmation response to client 
+    res.sendStatus(200); // 200 -> Ok
 });
 
 //-----------------------------------------------------------------------------
