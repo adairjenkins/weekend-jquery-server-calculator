@@ -39,7 +39,9 @@ function handleButtonClick() {
     }
     // 
     else if ($(this).hasClass('equals')) {
-
+        // calculationObj.num1 = Number(calculationObj.num1)
+        // calculationObj.num2 = Number(calculationObj.num2)
+        
         console.log('calculationObj:', calculationObj);
 
         // call func to make a POST request with new calculationObj
