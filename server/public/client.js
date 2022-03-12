@@ -23,24 +23,27 @@ function handleButtonClick() {
     
     // build num1 from button input if operator has not yet been clicked
     if ($(this).hasClass('number') && calculationObj.operator === '') {
-         console.log('clicked a number')
-         calculationObj.num1 += $(this).val();
-         console.log('num1:', calculationObj.num1);
+        console.log('clicked a number')
+        calculationObj.num1 += $(this).val();
+        console.log('num1:', calculationObj.num1);
+        // display on calculator 
+        calcDisplay()
     }
     // stores operator in calculationObj
     else if ($(this).hasClass('operator')) {
         calculationObj.operator = $(this).val();
         console.log('operator:', calculationObj.operator)
+        // display on calculator 
+        calcDisplay()
     }
     // build num2
     else if ($(this).hasClass('number')) {
         calculationObj.num2 += $(this).val();
         console.log('num2:', calculationObj.num2);
+        calcDisplay()
     }
     // 
     else if ($(this).hasClass('equals')) {
-        // calculationObj.num1 = Number(calculationObj.num1)
-        // calculationObj.num2 = Number(calculationObj.num2)
         
         console.log('calculationObj:', calculationObj);
 
@@ -81,6 +84,7 @@ function getHistory() {
     })
 }
 
+// displays list in DOM of all previous calculations 
 function displayHistory(calculationHistory) {
     // clear DOM
     $('#history').empty();
@@ -89,4 +93,11 @@ function displayHistory(calculationHistory) {
             <li>${calculation.num1} ${calculation.operator} ${calculation.num2} = ${calculation.result}</li>
         `)
     }
+}
+
+// displays button input in DOM calculator display
+function calcDisplay() {
+    $('#calcDisplay').val(calculationObj.num1 + 
+                          calculationObj.operator +
+                          calculationObj.num2);
 }

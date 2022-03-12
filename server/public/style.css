@@ -6,6 +6,10 @@ body {
     width: 100%;
 }
 
+#calcDisplay {
+    text-align: right;
+}
+
 li {
     list-style-type: none;
 }
