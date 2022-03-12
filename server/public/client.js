@@ -73,13 +73,20 @@ function getHistory() {
     $.ajax({
         url: '/calculationHistory',
         method: 'GET'
-    }).then( function(response) { //whatever you send will be the response
-        console.log('response');
-        // append the item to the inventory list in the DOM
-        console.log('here it is:', response);
+    }).then( function(response) {
+        // update DOM
+        displayHistory(response);
     }).catch( function(error) {
         console.log('error');
-    }) // .then means when AJAX gets back from the server (there's a time lapse, ex. the server's in Texas, and have to account for time traveling request)
-    
-    console.log('end of getHistory');
+    })
+}
+
+function displayHistory(calculationHistory) {
+    // clear DOM
+    $('#history').empty();
+    for (const calculation of calculationHistory) {
+        $('#history').append(`
+            <li>${calculation.num1} ${calculation.operator} ${calculation.num2} = ${calculation.result}</li>
+        `)
+    }
 }

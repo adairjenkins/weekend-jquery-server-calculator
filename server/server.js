@@ -35,9 +35,8 @@ function calculate(calculationObj) {
 }
 
 app.post('/calculationHistory', (req, res) => {
-    // add new calculationObj to calculationHistory
-    
-    calculationHistory.push(calculate(req.body));
+    // add new calculationObj to front of calculationHistory
+    calculationHistory.unshift(calculate(req.body));
     
     console.log('POST', calculationHistory);
     // confirmation response to client 
