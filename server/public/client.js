@@ -17,6 +17,7 @@ function handleReady() {
     $('#calculator').on('click', '.operator', handleOperator);
     $('#calculator').on('click', '.equals', handleEquals);
     $('#calculator').on('click', '.clear', reset);
+    $('#history').on('click', '.entry', reRunCalculation);
     $('#clearHistory').on('click', clearHistory);
 
     getHistory();
@@ -55,7 +56,6 @@ function handleEquals() {
     console.log('calculationObj:', calculationObj);
     // call func to make a POST request with new calculationObj
     postCalculation(calculationObj);
-    
     reset()
     getHistory();
 }
@@ -70,7 +70,6 @@ function reset() {
     updateCalcDisplay();
 }
 
-//-------------------------------------------------
 // POST request - sends obj to server where it is added to calculationHistory
 function postCalculation(obj) {
     $.ajax({
@@ -78,7 +77,7 @@ function postCalculation(obj) {
         method: 'POST',
         data: obj
     }).then(function(response) {
-        console.log(response); // will be 'created' because of the 201
+        console.log('POST request:', response);
     })
 }
 
@@ -100,9 +99,10 @@ function getHistory() {
 function displayHistory(calculationHistory) {
     // clear DOM
     $('#history').empty();
-    for (const calculation of calculationHistory) {
+    for (const entry of calculationHistory) {
         $('#history').append(`
-            <li>${calculation.num1} ${calculation.operator} ${calculation.num2} = ${calculation.result}</li>
+            <li class="entry" data-num1="${entry.num1}" data-num2="${entry.num2}" data-operator="${entry.operator}" data-result="${entry.result}">
+            ${entry.num1} ${entry.operator} ${entry.num2} = ${entry.result}</li>
         `)
     }
 }
@@ -122,9 +122,29 @@ function clearHistory() {
     getHistory();
 }
 
+function reRunCalculation() {
+    console.log('reRunCalculation func');
+    // retrieve values from data in entry
+    calculationObj.num1 = $(this).data('num1');
+    calculationObj.num2 = $(this).data('num2');
+    calculationObj.operator = $(this).data('operator');
+    calculationObj.result = $(this).data('result');
+
+    console.log('retrieved:', calculationObj);
+}
+
 // displays button input in DOM calculator display
 function updateCalcDisplay() {
-    $('#calcDisplay').val(calculationObj.num1 + 
-                          calculationObj.operator +
-                          calculationObj.num2);
+    if (calculationObj.result === '') {
+        $('#calcDisplay').val(calculationObj.num1 + 
+                              calculationObj.operator +
+                              calculationObj.num2);
+    }
+    // else {
+    //     $('#calcDisplay').val(calculationObj.num1 + 
+    //                           calculationObj.operator +
+    //                           calculationObj.num2 +
+    //                           '=' +
+    //                           calculationObj.result);
+    // }
 }
