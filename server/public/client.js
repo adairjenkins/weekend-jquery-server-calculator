@@ -62,6 +62,7 @@ function handleEquals() {
         postCalculation(calculationObj);
         // retrieve calculations
         getHistory();
+        reset();
     }
     else {
         alert('Enter valid expression using positive numbers');
@@ -123,6 +124,7 @@ function displayCalculations(calculationHistory) {
             </li>
         `)
     }
+    $('#calcDisplay').val(calculationHistory[0].result);
 }
 
 // TO DO - display result in calculator display
