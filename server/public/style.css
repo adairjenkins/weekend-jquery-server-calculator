@@ -9,6 +9,13 @@ body {
 .button {
     width: 100%;
     border-style: solid;
+    border-color: black;
+    border-width: .3px;
+    border-radius: 1px;
+}
+
+.number:hover {
+    background-color: rgb(218, 218, 218);
 }
 
 #calcDisplay {
@@ -29,9 +36,7 @@ table {
     height: auto;
     background-color: #577cc1;
     padding: 5px;
-    border-width: 3px;
-    border-color: black;
-
+    border-radius: 2px;
 }
 
 h1, .button, #clearHistory {
@@ -42,7 +47,22 @@ h1, .button, #clearHistory {
     background-color: #EEE784;
 }
 
+.operator:hover {
+    background-color: #e4d837;
+}
+
 .equals, .clear {
     background-color: #C94745;
     color: white;
+}
+
+.clear:hover {
+    background-color: #c2302e;
+}
+.equals:hover {
+    background-color: #c2302e;
+}
+
+li:hover {
+    font-size: 1.2em;
 }
