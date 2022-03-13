@@ -16,13 +16,13 @@ function handleReady() {
     $('#calculator').on('click', '.number', handleNumber);
     $('#calculator').on('click', '.operator', handleOperator);
     $('#calculator').on('click', '.equals', handleEquals);
-    $('#calculator').on('click', '.clear', reset);
+    $('#calculator').on('click', '.clear', handleC);
     $('#history').on('click', '.entry', reRunCalculation);
     $('#clearHistory').on('click', clearHistory);
 
     // update DOM
-    getHistory();
-    reset();
+    getHistory()
+    reset(); // FIXME - should clear calculator display of result from history but it's not; work around on line 131
 }
 
 // stores num1 and num2 in calculationObj
@@ -66,13 +66,17 @@ function handleEquals() {
         postCalculation(calculationObj);
         // retrieve calculations
         getHistory();
-        // clear calculationObj
-        reset();
     }
     // alert if missing necessary data
     else {
         alert('Enter valid expression using positive numbers');
     }
+}
+
+// clears calculationObj and calculator display
+function handleC() {
+    reset();
+    updateCalcDisplay();
 }
 
 // clears calculationObj values
@@ -82,8 +86,6 @@ function reset() {
     calculationObj.num1 = '';
     calculationObj.num2 = '';
     calculationObj.operator = '';
-    // clear calculator display
-    $('#calcDisplay').val('');
 }
 
 // POST request - sends obj to server where it is added to calculationHistory
@@ -128,8 +130,12 @@ function displayCalculations(calculationHistory) {
             </li>
         `)
     }
-    // display most recent result in calculator display
-    $('#calcDisplay').val(calculationHistory[0].result);
+    // display most recent result in calculator display unless page has just been reloaded
+    if (calculationObj.operator != '') {
+        $('#calcDisplay').val(calculationHistory[0].result);
+    }
+    // clear calculationObj
+    reset();
 }
 
 // DELETE request to server and updates DOM 
@@ -159,16 +165,13 @@ function reRunCalculation() {
     calculationObj.result = $(this).data('result');
 
     console.log('retrieved:', calculationObj);
-    $('#calcDisplay').val(calculationObj.num1 + 
-        calculationObj.operator +
-        calculationObj.num2);
+
+    updateCalcDisplay()
 }
 
 // displays button input in DOM calculator display
 function updateCalcDisplay() {
-    if (calculationObj.result === '') {
-        $('#calcDisplay').val(calculationObj.num1 + 
+    $('#calcDisplay').val(calculationObj.num1 + 
                               calculationObj.operator +
                               calculationObj.num2);
-    }
 }

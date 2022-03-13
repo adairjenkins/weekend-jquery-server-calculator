@@ -48,7 +48,7 @@ h1, .button, #clearHistory {
 }
 
 .operator:hover {
-    background-color: #e4d837;
+    background-color: #dbcf23;
 }
 
 .equals, .clear {
@@ -64,5 +64,5 @@ h1, .button, #clearHistory {
 }
 
 li:hover {
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
