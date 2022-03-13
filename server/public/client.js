@@ -152,6 +152,7 @@ function clearHistory() {
     // update DOM
     getHistory();
     reset();
+    updateCalcDisplay()
 }
 
 // re-enters clicked entry in calculator display; calculation will not run again
