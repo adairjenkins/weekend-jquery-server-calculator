@@ -23,6 +23,7 @@ function handleReady() {
 
     getHistory();
     reset();
+    $('#calcDisplay').val('879879');
 }
 
 function handleNumber() {
@@ -100,7 +101,6 @@ function getHistory() {
     }).then( function(response) {
         // store server response in global variable
         calculationHistory = response;
-        console.log('in get', calculationHistory[0]);
         // update DOM
         displayCalculations(calculationHistory);
     }).catch( function(error) {

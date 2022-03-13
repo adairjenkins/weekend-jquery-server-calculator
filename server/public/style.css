@@ -1,3 +1,7 @@
+* {
+    font-family: 'PT Mono', monospace;
+}
+
 body {
     background-color:rgb(238, 202, 179);
 }
@@ -13,6 +17,15 @@ body {
 }
 
 li {
+    padding-left: 0px;
     list-style-type: none;
     cursor: default;
+}
+
+/* #calculator {
+    font-family: 'PT Mono', monospace;
+} */
+
+h1, .button, #clearHistory {
+    font-family: 'Roboto', sans-serif;
 }
