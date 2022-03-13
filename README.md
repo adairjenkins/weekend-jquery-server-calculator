@@ -2,7 +2,10 @@
 
 ## Description
 
-This project is a web application calculator for performing addition, subtraction, multiplication, and division with positive numbers.
+This project is a web application calculator for performing and storing two number calculations with addition, subtraction, multiplication, and division. 
+
+## Screen Shot
+![project screen shot](/images/calculatorScreenShot.png)
 
 ## Usage
 
