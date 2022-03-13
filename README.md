@@ -1,9 +1,15 @@
-# Project Name
-
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+# jQuery Server Calculator
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+This project is a web application calculator for performing addition, subtraction, multiplication, and division with positive numbers.
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+## Usage
+
+## Built With
+
+## Acknowledgements
+
+## Support
+
+
