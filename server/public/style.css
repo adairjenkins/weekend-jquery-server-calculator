@@ -22,6 +22,10 @@ body {
     text-align: right;
     letter-spacing: .05em;
     word-spacing: 3em;
+    border-style: solid;
+    border-color: black;
+    border-width: .3px;
+    border-radius: 1px;
 }
 
 ul {
