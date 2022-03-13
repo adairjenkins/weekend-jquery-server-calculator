@@ -23,7 +23,6 @@ function handleReady() {
 
     getHistory();
     reset();
-    $('#calcDisplay').val('879879');
 }
 
 function handleNumber() {
