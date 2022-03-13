@@ -9,7 +9,6 @@ const calculationObj = {
     operator: '',
     result: ''
 }
-let calculationHistory = [];
 
 function handleReady() {
     console.log('jQuery');
@@ -21,21 +20,24 @@ function handleReady() {
     $('#history').on('click', '.entry', reRunCalculation);
     $('#clearHistory').on('click', clearHistory);
 
+    // update DOM
     getHistory();
     reset();
 }
 
+// stores num1 and num2 in calculationObj
 function handleNumber() {
     console.log('handleNumber func');
     button = $(this).val();
     console.log('button:', button);
-
+    // stores number input in num1 only if it precedes operator input
     if (calculationObj.operator === '') {
         calculationObj.num1 += button;
         console.log('num1:', calculationObj.num1);
         // display on calculator 
         updateCalcDisplay()
     }
+    // store num2 only after operator has been added
     else {
         calculationObj.num2 += button;
         console.log('num2:', calculationObj.num2);
@@ -44,6 +46,7 @@ function handleNumber() {
     }
 }
 
+// stores operator in calculationObj
 function handleOperator() {
     console.log('handleOperator func');
     calculationObj.operator = $(this).val();
@@ -52,23 +55,27 @@ function handleOperator() {
     updateCalcDisplay()
 }
 
+// checks that appropriate data was entered; calls postCalculation to process
+// data and getHistory to display calculations in DOM
 function handleEquals() {
     console.log('handleEquals func');
-
     console.log('calculationObj:', calculationObj);
-    
+    // send calculationObj to server only if num1, num2, and operator have been assigned values
     if (calculationObj.num1 && calculationObj.num2 && calculationObj.operator) {
         // call func to make a POST request with new calculationObj
         postCalculation(calculationObj);
         // retrieve calculations
         getHistory();
+        // clear calculationObj
         reset();
     }
+    // alert if missing necessary data
     else {
         alert('Enter valid expression using positive numbers');
     }
 }
 
+// clears calculationObj values
 function reset() {
     console.log('reset func');
     // reset calculationObj values
@@ -98,10 +105,8 @@ function getHistory() {
         url: '/calculationHistory',
         method: 'GET'
     }).then( function(response) {
-        // store server response in global variable
-        calculationHistory = response;
         // update DOM
-        displayCalculations(calculationHistory);
+        displayCalculations(response);
     }).catch( function(error) {
         console.log('error');
     })
@@ -123,11 +128,9 @@ function displayCalculations(calculationHistory) {
             </li>
         `)
     }
+    // display most recent result in calculator display
     $('#calcDisplay').val(calculationHistory[0].result);
 }
-
-// TO DO - display result in calculator display
-// save previous result as num1
 
 // DELETE request to server and updates DOM 
 function clearHistory() {
