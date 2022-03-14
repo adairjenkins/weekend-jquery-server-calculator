@@ -22,7 +22,7 @@ function handleReady() {
 
     // update DOM
     getHistory()
-    reset(); // FIXME - should clear calculator display of result from history but it's not; work around on line 131
+    reset(); // FIXME - should clear calculator display of result from history but it's not; work around on line 133
 }
 
 // stores num1 and num2 in calculationObj
@@ -61,7 +61,7 @@ function handleEquals() {
     console.log('handleEquals func');
     console.log('calculationObj:', calculationObj);
     // send calculationObj to server only if num1, num2, and operator have been assigned values
-    if (calculationObj.num1 && calculationObj.num2 && calculationObj.operator) {
+    if (Number(calculationObj.num1) && Number(calculationObj.num2) && calculationObj.operator) {
         // call func to make a POST request with new calculationObj
         postCalculation(calculationObj);
         // retrieve calculations
