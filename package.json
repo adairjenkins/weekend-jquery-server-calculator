@@ -1,5 +1,25 @@
 {
   "dependencies": {
     "express": "^4.17.3"
-  }
+  },
+  "name": "weekend-jquery-server-calculator",
+  "description": "## Description",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adairjenkins/weekend-jquery-server-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adairjenkins/weekend-jquery-server-calculator/issues"
+  },
+  "homepage": "https://github.com/adairjenkins/weekend-jquery-server-calculator#readme"
 }
